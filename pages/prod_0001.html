@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurelys - Joyeria y casa de cambio</title>
+  <link rel="stylesheet" href="../css/estilos.css">
+  <link rel="stylesheet" href="../css/animado.css">
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+
+  <script src="https://widgets.coingecko.com/coingecko-coin-price-marquee-widget.js"></script>
+</head>
+<body class="grid-container_1">
+  <div id="header">
+    <p_header></p_header>
+  </div>
+  <aside class="sidebar" id="asid">
+    <p_aside></p_aside>
+  </aside>
+
+  <article class="main">
+    <div class="tit_prod">
+      Collar cristal de plata
+    </div>
+    <div class="malla_3_productos">
+
+      <div class="aside">
+        <div class="foto_aside">
+          <img class="imagen_categoria" src="../img/productos/botones_categ/oro.png" alt="">
+          <a href="pages/cat_oro.html">
+            <p> <br> Oro</p>
+          </a>
+        </div>
+        <div class="foto_aside">
+          <img class="imagen_categoria" src="../img/productos/botones_categ/plata.png" alt="">
+          <a href="../pages/cat_plata.html">
+            <p> <br> Plata</p>
+          </a>
+        </div>
+        <div class="foto_aside">
+        <img class="imagen_categoria" src="../img/productos/botones_categ/dolares.png" alt="">
+        <a href="../pages/cat_dolares.html">
+          <p> <br> Dolares</p>
+        </a>
+        </div>
+        
+      </div>
+
+      <div class="imagen_producto">
+        <img class="img_prod" src="../img/productos/plata/P0001_04.png" alt="">
+      </div>
+
+      <div class="datos_prod">
+        <div class="precio">
+          $ 350.000
+          <br>
+          <br>
+        </div>
+        <div class="caract_prod">
+          plata
+          <br>
+          plateado, translucido
+          <br>
+          45 unidades
+          <br>
+          <br>
+          <div class="tot_com">
+            <div class="img_nom_com" id="datos_perfil1"></div>
+            <div class="com_com" id="datos_comentario1"></div>
+          </div>
+          <div class="tot_com">
+            <div class="img_nom_com" id="datos_perfil2"></div>
+            <div class="com_com" id="datos_comentario2"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+
+
+  <footer class="footer" id="foot">
+    <p_footer></p_footer>
+  </footer>
+  
+  <script src="https://widgets.coingecko.com/coingecko-coin-price-marquee-widget.js"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="../scripts/vue.js"></script>
+  <script src="https://kit.fontawesome.com/bc7a9e3b66.js" crossorigin="anonymous"></script>
+  <script>
+    let ruta_perfil = 'https://randomuser.me/api/?nat=es'//variable donde hacemos referencia al origen de los datos
+    let ruta_coment = 'https://jsonplaceholder.typicode.com/comments' //variable donde hacemos referencia al origen de los datos
+    fetch(ruta_perfil) //solicitud a la url (promesa)
+      .then(response => response.json()) //se resuelve la promesa, al obtener la respuesta la pasa a un determinado formato (json)
+      .then(data1 => traer_nombre1(data1)) //llamamos a la función mostrardata()
+      .catch(error => console.log("Ocurrió un error", error)) // si hay un error será atrapado por catch
+
+    fetch(ruta_perfil) //solicitud a la url (promesa)
+      .then(response => response.json()) //se resuelve la promesa, al obtener la respuesta la pasa a un determinado formato (json)
+      .then(data1 => traer_nombre2(data1)) //llamamos a la función mostrardata()
+      .catch(error => console.log("Ocurrió un error", error)) // si hay un error será atrapado por catch
+
+    fetch(ruta_coment) //solicitud a la url (promesa)
+      .then(response => response.json()) //se resuelve la promesa, al obtener la respuesta la pasa a un determinado formato (json)
+      .then(data2 => traer_comentario(data2)) //llamamos a la función mostrardata()
+      .catch(error => console.log("Ocurrió un error", error)) // si hay un error será atrapado por catch
+
+    const traer_nombre1 = (data) => {
+      let obj_nom = data["results"][0]["name"]
+      let obj_img = data["results"][0]["picture"]["medium"]
+      console.log(obj_img)
+      let contenido = ''
+      contenido += `
+                                  <img src="${obj_img}" width="50px" height="50px" class="rounded-circle">
+                                  <p class="nom_nom" >${obj_nom["first"]} ${obj_nom["last"]}</p>
+                                  `
+      document.getElementById("datos_perfil1").innerHTML = contenido
+    }
+
+    const traer_nombre2 = (data) => {
+      let obj_nom = data["results"][0]["name"]
+      let obj_img = data["results"][0]["picture"]["medium"]
+      console.log(obj_img)
+      let contenido = ''
+      contenido += `
+                                  <img src="${obj_img}" width="50px" height="50px" class="rounded-circle">
+                                  <p class="nom_nom" >${obj_nom["first"]} ${obj_nom["last"]}</p>
+                                  `
+      document.getElementById("datos_perfil2").innerHTML = contenido
+    }
+
+    const traer_comentario = (data) => {
+      let id1 = Math.floor(Math.random() * 500).toString()
+      let id2 = Math.floor(Math.random() * 500).toString()
+      let obj_com1 = data[id1]["body"]
+      let obj_com2 = data[id2]["body"]
+      let contenido1 = ''
+      let contenido2 = ''
+      contenido1 += `<p>${obj_com1}</p>`
+      contenido2 += `<p>${obj_com2}</p>`
+      document.getElementById("datos_comentario1").innerHTML = contenido1
+      document.getElementById("datos_comentario2").innerHTML = contenido2
+    }
+  </script>
+</body>
+</html>
